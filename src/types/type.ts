@@ -5,6 +5,7 @@ export interface Office {
     price: number;
     duration: number;
     about: string;
+    address: string;
     city: City;
     slug: string;
     rating: number;
@@ -27,6 +28,7 @@ export interface City {
     name: string,
     photo: string,
     slug: string,
+    officeSpaces: Office[],
     officeSpaces_count: number,
 }
 
