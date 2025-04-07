@@ -42,5 +42,5 @@ export interface BookingDetails {
     ended_date: string,
     total_amount: number,
     duration: number,
-    office: Office,
+    officeSpace: Office,
 }

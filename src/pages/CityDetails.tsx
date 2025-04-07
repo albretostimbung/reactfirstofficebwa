@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import { City } from "../types/type";
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import OfficeCard from "../components/OfficeCard";
-import Details from "./Details";
 import Navbar from "../components/Navbar";
+import apiClient, { baseURLStorage } from "../services/apiService";
 
 export default function CityDetails() {
-  const baseURL = "http://localhost:8000";
-  const baseURLStorage = "http://localhost:8000/storage";
   const { slug } = useParams<{ slug: string }>();
 
   const [city, setCity] = useState<City | null>(null);
@@ -16,11 +13,7 @@ export default function CityDetails() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    axios.get(`${baseURL}/api/city/${slug}`, {
-      headers: {
-        "X-API-KEY": "qwertyuiop12345568asdasd"
-      }
-    })
+    apiClient.get(`/city/${slug}`)
       .then((response) => {
         setCity(response.data);
         setLoading(false);
@@ -31,15 +24,15 @@ export default function CityDetails() {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <p className="text-center">Loading...</p>
   }
 
   if (error) {
-    return <p>Error loading data : {error}</p>
+    return <p className="text-center">Error loading data : {error}</p>
   }
 
   if (!city) {
-    return <p>Category not found</p>
+    return <p className="text-center">Category not found</p>
   }
 
   return (

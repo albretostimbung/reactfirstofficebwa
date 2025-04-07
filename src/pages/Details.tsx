@@ -2,11 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import { Office } from "../types/type";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
+import apiClient, { baseURLStorage } from "../services/apiService";
 
 export default function Details() {
-  const baseURL = "http://127.0.0.1:8000/storage";
   const { slug } = useParams<{ slug: string }>();
 
   const [office, setOffice] = useState<Office | null>(null);
@@ -14,11 +13,7 @@ export default function Details() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/office/${slug}`, {
-      headers: {
-        "X-API-KEY": "qwertyuiop12345568asdasd"
-      }
-    })
+    apiClient.get(`/office/${slug}`)
       .then((response) => {
         setOffice(response.data);
         setLoading(false);
@@ -55,14 +50,14 @@ export default function Details() {
             >
               {office.photos.map((photo) => (
                 <SwiperSlide className="!w-fit" key={photo.id}>
-                <div className="w-[700px] h-[550px] overflow-hidden">
-                  <img
-                    src={`${baseURL}/${photo.photo}`}
-                    className="w-full h-full object-cover"
-                    alt="thumbnail"
-                  />
-                </div>
-              </SwiperSlide>
+                  <div className="w-[700px] h-[550px] overflow-hidden">
+                    <img
+                      src={`${baseURLStorage}/${photo.photo}`}
+                      className="w-full h-full object-cover"
+                      alt="thumbnail"
+                    />
+                  </div>
+                </SwiperSlide>
               ))}
             </Swiper>
           </div>
@@ -244,17 +239,18 @@ export default function Details() {
             </div>
             <hr className="border-[#F6F5FD]" />
             <div className="flex flex-col gap-[14px]">
-              <a
-                href="booking.html"
-                className="flex items-center justify-center w-full rounded-full p-[16px_26px] gap-3 bg-[#0D903A] font-bold text-[#F7F7FD]"
-              >
-                <img
-                  src="/assets/images/icons/slider-horizontal-white.svg"
-                  className="w-6 h-6"
-                  alt="icon"
-                />
-                <span>Book This Office</span>
-              </a>
+              <Link to={`/office/${office.slug}/book`}>
+                <div
+                  className="flex items-center justify-center w-full rounded-full p-[16px_26px] gap-3 bg-[#0D903A] font-bold text-[#F7F7FD]"
+                >
+                  <img
+                    src="/assets/images/icons/slider-horizontal-white.svg"
+                    className="w-6 h-6"
+                    alt="icon"
+                  />
+                  <span>Book This Office</span>
+                </div>
+                </Link>
               <button className="flex items-center justify-center w-full rounded-full border border-[#000929] p-[16px_26px] gap-3 bg-white font-semibold">
                 <img
                   src="/assets/images/icons/save-add.svg"

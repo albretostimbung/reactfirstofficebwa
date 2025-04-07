@@ -1,8 +1,7 @@
+import { baseURLStorage } from "../services/apiService";
 import { City } from "../types/type"
 
 export default function CityCard({city}: CityCardProps) {
-    const baseURL = "http://127.0.0.1:8000/storage";
-    
     return (
         <div className="card">
             <div className="relative flex shrink-0 w-[230px] h-[300px] rounded-[20px] overflow-hidden">
@@ -13,7 +12,7 @@ export default function CityCard({city}: CityCardProps) {
                     <p className="text-white">{city.officeSpaces_count} office</p>
                 </div>
                 <img
-                    src={`${baseURL}/${city.photo}`}
+                    src={`${baseURLStorage}/${city.photo}`}
                     className="absolute w-full h-full object-cover"
                     alt="thumbnails"
                 />

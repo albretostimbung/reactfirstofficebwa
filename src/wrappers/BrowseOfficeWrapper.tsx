@@ -1,7 +1,7 @@
-import axios from "axios";
 import OfficeCard from "../components/OfficeCard";
 import { Office } from "../types/type";
 import { useEffect, useState } from "react";
+import apiClient from "../services/apiService";
 
 export default function BrowseCityWrapper() {
     const [office, setOffice] = useState<Office[]>([]);
@@ -9,11 +9,7 @@ export default function BrowseCityWrapper() {
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/offices", {
-            headers: {
-                "X-API-KEY": "qwertyuiop12345568asdasd"
-            }
-        })
+        apiClient.get("/offices")
             .then((response) => {
                 setOffice(response.data);
                 setLoading(false);
@@ -24,11 +20,35 @@ export default function BrowseCityWrapper() {
     }, [])
 
     if (loading) {
-        return <p>Loading...</p>
+        return (
+            <section
+                id="Fresh-Space"
+                className="flex flex-col gap-[30px] w-full max-w-[1130px] mx-auto mt-[100px] mb-[120px]"
+            >
+                <h2 className="font-bold text-[32px] leading-[48px] text-nowrap text-center">
+                    Browse Our Fresh Space.
+                    <br />
+                    For Your Better Productivity.
+                </h2>
+                <p className="text-center">Loading...</p>
+            </section>
+        )
     }
 
     if (error) {
-        return <p>Error loading data : {error}</p>
+        return (
+            <section
+                id="Fresh-Space"
+                className="flex flex-col gap-[30px] w-full max-w-[1130px] mx-auto mt-[100px] mb-[120px]"
+            >
+                <h2 className="font-bold text-[32px] leading-[48px] text-nowrap text-center">
+                    Browse Our Fresh Space.
+                    <br />
+                    For Your Better Productivity.
+                </h2>
+                <p className="text-center">Error loading data : {error}</p>
+            </section>
+        )
     }
 
     return (

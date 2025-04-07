@@ -10,7 +10,7 @@ export default function Navbar() {
                 <ul className="flex items-center gap-[50px] w-fit">
                     <li>
                         <Link to="/">
-                            <a href="">Browse</a>
+                            <div>Browse</div>
                         </Link>
                     </li>
                     <li>
@@ -23,7 +23,9 @@ export default function Navbar() {
                         <a href="">Events</a>
                     </li>
                     <li>
-                        <a href="view-booking-details.html">My Booking</a>
+                        <Link to="/check-booking">
+                            <div>My Booking</div>
+                        </Link>
                     </li>
                 </ul>
                 <a

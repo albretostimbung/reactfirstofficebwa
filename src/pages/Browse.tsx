@@ -1,6 +1,3 @@
-import { Swiper, SwiperSlide } from "swiper/react"
-import CityCard from "../components/CityCard"
-import OfficeCard from "../components/OfficeCard"
 import BrowseCityWrapper from "../wrappers/BrowseCityWrapper"
 import BrowseOfficeWrapper from "../wrappers/BrowseOfficeWrapper"
 import Navbar from "../components/Navbar"
